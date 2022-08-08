@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory, Link, useLocation } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { InputField, PasswordInput } from "../../components/Input";
 import { employerLogin } from "../../utils/ApiRequests";
 import { setExpiryTimeToStorage } from "../../utils/ApiUtils";
-import { ErrorMessage } from "../../components/Message/Message";
-import { Link } from "react-router-dom";
+import { ErrorMessage, SuccessMessage } from "../../components/Message/Message";
+// import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import isEmail from "is-email";
 import Cookies from "js-cookie";
@@ -13,10 +13,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUser, persistSelector } from "../../slices/persist";
 
 export const Login = () => {
+    const history = useHistory();
+    const location = useLocation();
     const dispatch = useDispatch();
     const data = useSelector(persistSelector);
 
     console.log(data);
+
+    console.log(location);
+
+    useEffect(() => {
+        if (location.state?.prevPath === "/onboard/step3") {
+            setSuccess(true);
+        }
+
+        return () => setSuccess(false);
+    }, [history, location.state?.prevPath]);
 
     const {
         register,
@@ -25,7 +37,7 @@ export const Login = () => {
     } = useForm();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-    const history = useHistory();
+    const [success, setSuccess] = useState(false);
 
     const onSubmit = async formData => {
         if (formData) {
@@ -63,6 +75,12 @@ export const Login = () => {
                     <ErrorMessage
                         title='Error'
                         message='An error occurred. Please ensure your email and password is correct.'
+                    />
+                )}
+                {success && (
+                    <SuccessMessage
+                        title='Success'
+                        message='Congrats, you have successfully being Onboarded. Please login in to access Dashboard.'
                     />
                 )}
                 <form onSubmit={handleSubmit(onSubmit)}>

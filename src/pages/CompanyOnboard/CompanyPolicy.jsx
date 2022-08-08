@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { InputField, SelectInput } from "../../components/Input";
 import { companyPolicy } from "../../utils/ApiRequests";
@@ -12,6 +12,7 @@ import { setUser, persistSelector } from "../../slices/persist";
 
 const CompanyPolicy = () => {
     const history = useHistory();
+    const location = useLocation();
     const { user } = useSelector(persistSelector);
     const dispatch = useDispatch();
     const {
@@ -30,7 +31,7 @@ const CompanyPolicy = () => {
     const [error, setError] = useState(false);
     const [errMessage, setErrMessage] = useState("");
 
-    console.log(user);
+    // console.log(user);
 
     const onSubmit = async formData => {
         console.log(formData);
@@ -58,8 +59,10 @@ const CompanyPolicy = () => {
                 //         ...formData,
                 // salary_date: selectedValue?.value,
                 // );
+                location.state = { prevPath: location.pathname };
 
-                history.push("/dashboard");
+                history.push("/login");
+                // history.push("/dashboard");
                 // history.push("/onboard/step4");
             } catch (error) {
                 toast.error("An error occurred");

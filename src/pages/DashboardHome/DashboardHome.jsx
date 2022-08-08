@@ -40,8 +40,6 @@ const DashboardHome = () => {
     const [paymentLogs, setPaymentLogs] = useState();
     const [profile, setProfile] = useState(user);
 
-    console.log(user);
-
     const token = getTokenFromStorage();
 
     const history = useHistory();
