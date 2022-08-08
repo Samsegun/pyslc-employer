@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, Link, useLocation } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 import { InputField, PasswordInput } from "../../components/Input";
 import { employerLogin } from "../../utils/ApiRequests";
@@ -10,25 +10,23 @@ import { useForm } from "react-hook-form";
 import isEmail from "is-email";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser, persistSelector } from "../../slices/persist";
+import { setUser, persistSelector, setPrevPath } from "../../slices/persist";
 
 export const Login = () => {
     const history = useHistory();
-    const location = useLocation();
     const dispatch = useDispatch();
     const data = useSelector(persistSelector);
 
-    console.log(data);
-
-    console.log(location);
-
     useEffect(() => {
-        if (location.state?.prevPath === "/onboard/step3") {
+        if (data.prevPath === "/onboard/step3") {
             setSuccess(true);
         }
 
-        return () => setSuccess(false);
-    }, [history, location.state?.prevPath]);
+        return () => {
+            setSuccess(false);
+            dispatch(setPrevPath(""));
+        };
+    }, [data.prevPath, dispatch]);
 
     const {
         register,

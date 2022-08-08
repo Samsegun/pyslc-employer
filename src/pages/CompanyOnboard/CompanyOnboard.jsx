@@ -14,8 +14,6 @@ const CompanyOnboard = () => {
     const { user } = useSelector(persistSelector);
     const history = useHistory();
 
-    console.log(user);
-
     const {
         register,
         handleSubmit,

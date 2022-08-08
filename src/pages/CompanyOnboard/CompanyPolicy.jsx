@@ -8,7 +8,7 @@ import { ErrorMessage } from "../../components/Message/Message";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser, persistSelector } from "../../slices/persist";
+import { setUser, persistSelector, setPrevPath } from "../../slices/persist";
 
 const CompanyPolicy = () => {
     const history = useHistory();
@@ -34,7 +34,6 @@ const CompanyPolicy = () => {
     // console.log(user);
 
     const onSubmit = async formData => {
-        console.log(formData);
         if (formData) {
             const payload = {
                 company_id: user?.company_id,
@@ -59,7 +58,7 @@ const CompanyPolicy = () => {
                 //         ...formData,
                 // salary_date: selectedValue?.value,
                 // );
-                location.state = { prevPath: location.pathname };
+                dispatch(setPrevPath("/onboard/step3"));
 
                 history.push("/login");
                 // history.push("/dashboard");
