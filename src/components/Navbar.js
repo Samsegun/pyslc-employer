@@ -4,6 +4,7 @@ import { useClickOutside } from "../hooks/useClickOutside";
 import {
     removeTokenFromStorage,
     removeUserDataFromStorage,
+    logout,
 } from "../utils/ApiUtils";
 import { useHistory, useLocation } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
@@ -22,15 +23,25 @@ const Navbar = () => {
     const history = useHistory();
     const location = useLocation();
 
+    // const handleLogout = () => {
+    //     if (location.pathname.startsWith("/user")) {
+    //         history.push("/user/login");
+    //     } else {
+    //         history.push("/login");
+    //     }
+
+    //     removeTokenFromStorage();
+    //     removeUserDataFromStorage();
+    // };
     const handleLogout = () => {
         if (location.pathname.startsWith("/user")) {
             history.push("/user/login");
         } else {
+            // removeTokenFromStorage();
+            // removeUserDataFromStorage();
+            logout();
             history.push("/login");
         }
-
-        removeTokenFromStorage();
-        removeUserDataFromStorage();
     };
     return (
         <nav
