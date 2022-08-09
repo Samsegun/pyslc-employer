@@ -2,8 +2,8 @@ import React, { useState, useRef } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useClickOutside } from "../hooks/useClickOutside";
 import {
-    removeTokenFromStorage,
-    removeUserDataFromStorage,
+    // removeTokenFromStorage,
+    // removeUserDataFromStorage,
     logout,
 } from "../utils/ApiUtils";
 import { useHistory, useLocation } from "react-router-dom";
@@ -43,10 +43,12 @@ const Navbar = () => {
             history.push("/login");
         }
     };
+
     return (
         <nav
             ref={tdc}
-            className='flex justify-between px-10 2xl:px-[76px] bg-white p-6 items-center mobiles:hidden h-[92px] nav-shadow relative'>
+            className='flex justify-between px-10 2xl:px-[76px] bg-white p-6 items-center
+             mobiles:hidden h-[92px] nav-shadow relative shadow-lg'>
             <div className='flex items-center'>
                 <IoIosSearch className='w-6 h-6 text-[#CECED0]' />
                 <input
