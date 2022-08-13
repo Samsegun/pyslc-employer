@@ -214,7 +214,7 @@ const DashboardHome = () => {
             </div>
 
             <div className='mt-10 cards'>
-                <div className='flex mobiles:block'>
+                <div className='flex flex-wrap mobiles:block'>
                     <div className='w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Payroll Size
