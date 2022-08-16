@@ -280,12 +280,19 @@ const DashboardHome = () => {
                             </span>
                         </h4>
                     </div>
+
                     <div className='w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Upcoming payments
                         </p>
                         <p className='flex mt-2 text-sm font-normal mobiles:flex mobiles:justify-between'>
-                            January 2021{" "}
+                            {`${new Date(
+                                policyResponse?.updated_at
+                            ).toLocaleString("default", {
+                                month: "long",
+                            })} ${new Date(
+                                policyResponse?.updated_at
+                            ).getFullYear()} `}
                             <span
                                 className='flex ml-2 font-bold'
                                 style={{ color: "#D0000C" }}>
@@ -310,6 +317,7 @@ const DashboardHome = () => {
                         <h3 className='text-xl font-semibold text-[#111111b3] pt-5 mb-6 px-2'>
                             Active Withdrawal
                         </h3>
+                        {/* <ResponsiveContainer width='100%' height='85%'> */}
                         <ResponsiveContainer width='100%' height='85%'>
                             <AreaChart
                                 data={graphData}
@@ -379,10 +387,12 @@ const DashboardHome = () => {
                                     labelStyle={{ color: "green" }}
                                     itemStyle={{ color: "#000" }}
                                     formatter={value => {
-                                        return [`${value}`, `Kwh`];
+                                        return [`${value}`, `=N=`];
+                                        // return [`${value}`, `Kwh`];
                                     }}
                                     labelFormatter={value => {
-                                        return `'Unit Purchased', ${value}`;
+                                        return `'Amount Withdrawn', ${value}`;
+                                        // return `'Unit Purchased', ${value}`;
                                     }}
                                 />
                                 <Area
@@ -409,6 +419,7 @@ const DashboardHome = () => {
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
+
                     <div className='w-1/3 mobiles:w-full rounded-[10px] border border-gray h-[527px]'>
                         <div className='text-base text-[#111111b3] font-semibold border-b border-gray-300 py-[18px] px-5'>
                             Recent transactions

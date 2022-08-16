@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
+import { GenderSelectInput } from "../../components/GenderInput";
 import { InputField, PasswordInput } from "../../components/Input";
 import { ErrorMessage } from "../../components/Message/Message";
 import { employerRegister } from "../../utils/ApiRequests";
@@ -13,6 +14,7 @@ export const SignUp = () => {
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm();
     const [loading, setLoading] = useState(false);
@@ -21,6 +23,14 @@ export const SignUp = () => {
     const [errMessage, setErrMessage] = useState();
 
     const history = useHistory();
+
+    const genderTypes = [
+        { id: 0, name: "--Select Gender--", value: null },
+        { id: 1, name: "Male", value: "male" },
+        { id: 2, name: "Female", value: "female" },
+    ];
+
+    const [selectedValue, setSelectedValue] = useState(genderTypes[0]);
 
     const onSubmit = async formData => {
         if (formData) {
@@ -65,12 +75,21 @@ export const SignUp = () => {
                             })}
                         />
                         {/* Todo add select dropdown here */}
-                        <InputField
+                        {/* <InputField
                             label='Gender'
                             name='gender'
                             type='text'
                             placeholder='Male or Female'
-                            errors={errors?.last_name ?? false}
+                            errors={errors?.gender ?? false}
+                            {...register("gender", { required: true })}
+                        /> */}
+
+                        <GenderSelectInput
+                            label='Gender'
+                            options={genderTypes}
+                            selectedValue={selectedValue}
+                            setSelectedValue={setSelectedValue}
+                            setFormValue={setValue}
                             {...register("gender", { required: true })}
                         />
 

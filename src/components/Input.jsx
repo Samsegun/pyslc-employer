@@ -11,6 +11,7 @@ export const InputField = forwardRef(
             id,
             onChange,
             value,
+            defaultValue,
             required,
             label,
             minLength,
@@ -59,6 +60,7 @@ export const InputField = forwardRef(
                     maxLength={maxLength}
                     onChange={onChange}
                     value={value}
+                    defaultValue={defaultValue}
                     required={required}
                     autoComplete='off'
                     {...props}
