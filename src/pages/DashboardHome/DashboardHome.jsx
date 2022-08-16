@@ -181,7 +181,7 @@ const DashboardHome = () => {
                     {`${user?.first_name} ${user?.last_name}`}
                 </h2>
                 <div className='flex justify-between'>
-                    <div className='tab flex rounded-[5px] bg-gray-100 mr-5 mobiles:mr-0 h-[42px]'>
+                    {/* <div className='tab flex rounded-[5px] bg-gray-100 mr-5 mobiles:mr-0 h-[42px]'>
                         <div
                             className={`px-5 rounded flex items-center text-sm cursor-pointer mobiles:w-1/2 mobiles:px-3 mobiles:text-xs ${
                                 activeIndex === 0 && "__tab-active"
@@ -203,7 +203,7 @@ const DashboardHome = () => {
                             onClick={() => setActiveIndex(2)}>
                             Month
                         </div>
-                    </div>
+                    </div> */}
                     {/* <div className="flex px-5 py-2 bg-gray-100 rounded tab mobiles:w-1/2 mobiles:text-xs mobiles:px-2">
             <BiCalendarEvent size="20" className="my-auto" />
             <div className="px-3 my-auto mobiles:px-2">
