@@ -50,11 +50,12 @@ const DashboardHome = () => {
 
         const fetchAcceptedEmployees = async filterParams => {
             try {
-                const res = await getTotalNoOfEmployees(
-                    employeesDate.getDay(),
-                    employeesDate.getMonth() + 1,
-                    employeesDate.getUTCFullYear()
-                );
+                // const res = await getTotalNoOfEmployees(
+                //     employeesDate.getDay(),
+                //     employeesDate.getMonth() + 1,
+                //     employeesDate.getUTCFullYear()
+                // );
+                const res = await getTotalNoOfEmployees();
                 setAcceptedEmployees(res.data.payload.data?.numberOfEmployees);
             } catch (error) {
                 console.log("error", error);

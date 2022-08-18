@@ -4,9 +4,39 @@ import Navbar from "../components/Navbar";
 import Sidebar from "./Sidebar";
 import UserSidebar from "./UserSidebar";
 import { DahboardMobileNav } from "./DashboardMbNav";
+// import { useEffect } from "react";
 
 const AppLayout = ({ children, navTab }) => {
     const location = useLocation();
+
+    // useEffect(() => {
+    //     // window.scrollTo(0, 500);
+    //     // window.scrollTo({
+    //     //     top: 0,
+    //     //     left: 0,
+    //     //     behavior: "smooth",
+    //     // });
+
+    //     window.addEventListener("load", () => {
+    //         console.log("loaded");
+    //         // if (window.scrollY > 400) {
+    //         //     setShowTopBtn(true);
+    //         // } else {
+    //         //     setShowTopBtn(false);
+    //         // }
+    //     });
+
+    //     return () => {
+    //         window.addEventListener("load", () => {
+    //             console.log("unloaded");
+    //             // if (window.scrollY > 400) {
+    //             //     setShowTopBtn(true);
+    //             // } else {
+    //             //     setShowTopBtn(false);
+    //             // }
+    //         });
+    //     };
+    // }, []);
 
     const isEmployee = location?.pathname?.includes("user");
 
@@ -22,7 +52,8 @@ const AppLayout = ({ children, navTab }) => {
                 // className="flex-1 w-full h-screen max-w-full max-h-screen overflow-y-auto mobiles:p-6 overscroll-x-hidden mobiles:mt-20"
             >
                 <Navbar />
-                {navTab && (
+
+                {/* {navTab && (
                     <div className='bg-gray-100 w-full flex py-5 px-10 2xl:px-[76px] mobiles:hidden'>
                         {navTab?.map((nav, i) => {
                             return (
@@ -35,7 +66,7 @@ const AppLayout = ({ children, navTab }) => {
                             );
                         })}
                     </div>
-                )}
+                )} */}
 
                 <div className='py-[70px] px-10 2xl:px-[76px] mobiles:p-0'>
                     {children}
