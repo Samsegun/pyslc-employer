@@ -60,6 +60,16 @@ export const chart_one = [
         pv: 45000,
         amt: 22000,
     },
+    {
+        name: "oct 25",
+        pv: 200000,
+        amt: 10000,
+    },
+    {
+        name: "nov 23",
+        pv: 115000,
+        amt: 15000,
+    },
 ];
 
 export const chart_two = [

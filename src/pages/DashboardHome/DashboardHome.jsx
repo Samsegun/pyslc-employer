@@ -19,6 +19,7 @@ import {
     getDashboardWithdrawalWithParams,
     getTotalNoOfAcceptedEmployees,
     getTotalNoOfEmployees,
+    getTotalNoAcceptedEmployees,
 } from "../../utils/ApiRequests";
 import { getTokenFromStorage, getuserFromStorage } from "../../utils/ApiUtils";
 import { toCurrency, truncateString } from "../../utils/helpers";
@@ -28,6 +29,7 @@ import Navbar from "../../components/Navbar";
 import { chart_one } from "../../utils/data";
 import { useSelector } from "react-redux";
 import { persistSelector } from "../../slices/persist";
+import CustomYaxis from "../../components/CustomYaxis";
 
 const DashboardHome = () => {
     const { user } = useSelector(persistSelector);
@@ -51,14 +53,20 @@ const DashboardHome = () => {
         const fetchAcceptedEmployees = async filterParams => {
             try {
                 // const res = await getTotalNoOfEmployees(
-                //     employeesDate.getDay(),
-                //     employeesDate.getMonth() + 1,
-                //     employeesDate.getUTCFullYear()
+                //     employeesDate.getDay().toString(),
+                //     (employeesDate.getMonth() + 1).toString(),
+                //     employeesDate.getUTCFullYear().toString()
                 // );
-                const res = await getTotalNoOfEmployees();
+                const res = await getTotalNoAcceptedEmployees();
+
+                console.log(res.data);
+
+                // const res = await getTotalNoOfEmployees();
+
                 setAcceptedEmployees(res.data.payload.data?.numberOfEmployees);
             } catch (error) {
                 console.log("error", error);
+                toast.error("An error occurred");
             }
         };
         fetchAcceptedEmployees();
@@ -215,7 +223,7 @@ const DashboardHome = () => {
             </div>
 
             <div className='mt-10 cards'>
-                <div className='flex flex-wrap mobiles:block'>
+                <div className='flex mobiles:block'>
                     <div className='w-1/4 h-[142px] mobiles:w-full mobiles:my-4 mr-5 rounded-[10px] border border-gray-200 p-6'>
                         <p className='text-lg font-bold text-gray-600'>
                             Payroll Size
@@ -314,111 +322,131 @@ const DashboardHome = () => {
 
             <div className='my-16'>
                 <div className='flex w-full mobiles:block'>
-                    <div className='p-6 mobiles:p-0 mr-8 w-2/3 mobiles:w-full mobiles:my-4 border border-gray-200 rounded-[10px] h-[527px]'>
+                    <div className='p-6 mobiles:p-0 mobiles:px-4 mr-8 w-2/3 mobiles:w-full mobiles:my-4 border border-gray-200 rounded-[10px] h-[527px]'>
                         <h3 className='text-xl font-semibold text-[#111111b3] pt-5 mb-6 px-2'>
                             Active Withdrawal
                         </h3>
                         {/* <ResponsiveContainer width='100%' height='85%'> */}
-                        <ResponsiveContainer width='100%' height='85%'>
-                            <AreaChart
-                                data={graphData}
-                                fontSize={14}
-                                fontWeight={"semibold"}
-                                margin={{
-                                    top: 10,
-                                    right: 10,
-                                    left: -12,
-                                    bottom: 0,
-                                }}>
-                                <defs>
-                                    <linearGradient
-                                        id='colorUv'
-                                        x1='0'
-                                        y1='0'
-                                        x2='0'
-                                        y2='1'>
-                                        <stop
-                                            offset='50%'
-                                            stopColor='#1C64F2'
-                                            stopOpacity={0.6}
-                                        />
-                                        <stop
-                                            offset='100%'
-                                            stopColor='#1C64F2'
-                                            stopOpacity={0}
-                                        />
-                                    </linearGradient>
-                                    <linearGradient
-                                        id='colorPv'
-                                        x1='0'
-                                        y1='0'
-                                        x2='0'
-                                        y2='1'>
-                                        <stop
-                                            offset='100%'
-                                            stopColor='#82ca9d'
-                                            stopOpacity={0.8}
-                                        />
-                                        <stop
-                                            offset='95%'
-                                            stopColor='#82ca9d'
-                                            stopOpacity={0}
-                                        />
-                                    </linearGradient>
-                                </defs>
-                                <XAxis
-                                    dataKey='name'
-                                    tick={{ fill: "#989898" }}
-                                />
-                                <YAxis
-                                    tick={{ fill: "#989898" }}
-                                    orientation='left'
-                                />
-                                <CartesianGrid
-                                    x='0'
-                                    vertical={false}
-                                    strokeDasharray='3 3'
-                                    strokeOpacity={0.3}
-                                />
-                                <Tooltip
-                                    wrapperStyle={{
-                                        color: "red",
-                                        backgroundColor: "#000 !important",
-                                    }}
-                                    labelStyle={{ color: "green" }}
-                                    itemStyle={{ color: "#000" }}
-                                    formatter={value => {
-                                        return [`${value}`, `=N=`];
-                                        // return [`${value}`, `Kwh`];
-                                    }}
-                                    labelFormatter={value => {
-                                        return `'Amount Withdrawn', ${value}`;
-                                        // return `'Unit Purchased', ${value}`;
-                                    }}
-                                />
-                                <Area
-                                    dataKey='pv'
-                                    type='monotone'
-                                    stroke='#1C64F2'
-                                    fillOpacity={0.5}
-                                    strokeWidth={3}
-                                    dot={{
-                                        r: 6,
-                                        stroke: "#1C64F2",
-                                        strokeWidth: 1,
-                                        fill: "#fff",
-                                        fillOpacity: 2,
-                                    }}
-                                    activeDot={{
-                                        r: 5,
-                                        stroke: "#1C64F2",
-                                        strokeWidth: 4,
-                                        fill: "#fff",
-                                    }}
-                                    fill='url(#colorUv)'
-                                />
-                            </AreaChart>
-                        </ResponsiveContainer>
+                        <div
+                            className='w-[100%] h-[100%] overflow-x-scroll'
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                paddingTop: "1em",
+                                maxHeight: "435px",
+                                overflowX: "scroll",
+                                overflowY: "hidden",
+                            }}>
+                            {/* <CustomYaxis /> */}
+                            <ResponsiveContainer minWidth='1000px' height='85%'>
+                                <AreaChart
+                                    data={graphData}
+                                    fontSize={14}
+                                    fontWeight={"semibold"}
+                                    // margin={{
+                                    //     top: 10,
+                                    //     right: 10,
+                                    //     left: -12,
+                                    //     bottom: 0,
+                                    // }}
+                                    margin={{
+                                        top: 10,
+                                        right: 10,
+                                        left: 10,
+                                        bottom: 0,
+                                    }}>
+                                    <defs>
+                                        <linearGradient
+                                            id='colorUv'
+                                            x1='0'
+                                            y1='0'
+                                            x2='0'
+                                            y2='1'>
+                                            <stop
+                                                offset='50%'
+                                                stopColor='#1C64F2'
+                                                stopOpacity={0.6}
+                                            />
+                                            <stop
+                                                offset='100%'
+                                                stopColor='#1C64F2'
+                                                stopOpacity={0}
+                                            />
+                                        </linearGradient>
+                                        <linearGradient
+                                            id='colorPv'
+                                            x1='0'
+                                            y1='0'
+                                            x2='0'
+                                            y2='1'>
+                                            <stop
+                                                offset='100%'
+                                                stopColor='#82ca9d'
+                                                stopOpacity={0.8}
+                                            />
+                                            <stop
+                                                offset='95%'
+                                                stopColor='#82ca9d'
+                                                stopOpacity={0}
+                                            />
+                                        </linearGradient>
+                                    </defs>
+                                    <XAxis
+                                        dataKey='name'
+                                        tick={{ fill: "#989898" }}
+                                    />
+
+                                    <YAxis
+                                        tick={{ fill: "#989898" }}
+                                        orientation='left'
+                                        // hide={true}
+                                    />
+                                    <CartesianGrid
+                                        x='0'
+                                        vertical={false}
+                                        strokeDasharray='3 3'
+                                        strokeOpacity={0.3}
+                                    />
+                                    <Tooltip
+                                        wrapperStyle={{
+                                            color: "red",
+                                            backgroundColor: "#000 !important",
+                                        }}
+                                        labelStyle={{ color: "green" }}
+                                        itemStyle={{ color: "#000" }}
+                                        formatter={value => {
+                                            return [`${value}`, `=N=`];
+                                            // return [`${value}`, `Kwh`];
+                                        }}
+                                        labelFormatter={value => {
+                                            return `'Amount Withdrawn', ${value}`;
+                                            // return `'Unit Purchased', ${value}`;
+                                        }}
+                                    />
+                                    <Area
+                                        dataKey='pv'
+                                        type='monotone'
+                                        stroke='#1C64F2'
+                                        fillOpacity={0.5}
+                                        strokeWidth={3}
+                                        dot={{
+                                            r: 6,
+                                            stroke: "#1C64F2",
+                                            strokeWidth: 1,
+                                            fill: "#fff",
+                                            fillOpacity: 2,
+                                        }}
+                                        activeDot={{
+                                            r: 5,
+                                            stroke: "#1C64F2",
+                                            strokeWidth: 4,
+                                            fill: "#fff",
+                                        }}
+                                        fill='url(#colorUv)'
+                                    />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        </div>
                     </div>
 
                     <div className='w-1/3 mobiles:w-full rounded-[10px] border border-gray h-[527px]'>

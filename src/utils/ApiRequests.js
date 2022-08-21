@@ -291,7 +291,7 @@ export const getTotalNoOfEmployees = (day, month, year) => {
  */
 export const getTotalNoOfAcceptedEmployees = () => {
     return ApiRequestWithToken().get(
-        `/employer/total_number_of_accepted_employees?day=1&month=01&year=2022`
+        `/employer/total_number_of_accepted_employees?day=6&month=8&year=2022`
     );
 };
 
