@@ -20,6 +20,7 @@ import {
     getTotalNoOfAcceptedEmployees,
     getTotalNoOfEmployees,
     getTotalNoAcceptedEmployees,
+    getTotalTransactions,
 } from "../../utils/ApiRequests";
 import { getTokenFromStorage, getuserFromStorage } from "../../utils/ApiUtils";
 import { toCurrency, truncateString } from "../../utils/helpers";
@@ -69,6 +70,19 @@ const DashboardHome = () => {
                 toast.error("An error occurred");
             }
         };
+
+        const histories = async () => {
+            try {
+                const transactions = await getTotalTransactions();
+
+                console.log(transactions);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        histories();
+
         fetchAcceptedEmployees();
     }, []);
 

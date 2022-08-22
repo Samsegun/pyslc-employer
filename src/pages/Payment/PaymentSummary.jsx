@@ -69,6 +69,8 @@ const PaymentSummary = () => {
             ? "Last Week"
             : policyResponse?.salary_date === "first_week"
             ? "First Week"
+            : policyResponse?.salary_date === "second_week"
+            ? "Second Week"
             : policyResponse?.salary_date;
 
     const totalWithdrawals = paymentList?.reduce(
