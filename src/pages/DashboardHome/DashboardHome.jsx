@@ -53,12 +53,12 @@ const DashboardHome = () => {
 
         const fetchAcceptedEmployees = async filterParams => {
             try {
-                // const res = await getTotalNoOfEmployees(
-                //     employeesDate.getDay().toString(),
-                //     (employeesDate.getMonth() + 1).toString(),
-                //     employeesDate.getUTCFullYear().toString()
-                // );
-                const res = await getTotalNoAcceptedEmployees();
+                const res = await getTotalNoOfEmployees(
+                    employeesDate.getDay().toString(),
+                    (employeesDate.getMonth() + 1).toString(),
+                    employeesDate.getUTCFullYear().toString()
+                );
+                // const res = await getTotalNoAcceptedEmployees();
 
                 console.log(res.data);
 
