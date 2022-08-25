@@ -57,7 +57,7 @@ export const chart_one = [
     },
     {
         name: "Dec 22",
-        pv: 45000,
+        pv: 40000,
         amt: 22000,
     },
     // {
