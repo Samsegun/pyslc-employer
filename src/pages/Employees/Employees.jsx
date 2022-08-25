@@ -274,8 +274,9 @@ export const Employees = () => {
                                 return (
                                     <tr
                                         key={id}
-                                        className='bg-white border-b last:border-none hover:bg-gray-50 cursor-pointer'
-                                        onClick={() => handleViewDetails(id)}>
+                                        className='bg-white border-b last:border-none hover:bg-gray-50'
+                                        // onClick={() => handleViewDetails(id)}
+                                    >
                                         <td className='w-4 p-6'>
                                             <div className='flex items-center'>
                                                 <input
